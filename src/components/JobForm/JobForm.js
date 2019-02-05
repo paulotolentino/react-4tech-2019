@@ -1,7 +1,6 @@
 import React from 'react';
 
 const jobForm = () => (
-  <div className="card card-body mb-3">
     <form className="row mb-0">
       <div className="form-group col-12">
         <label for="nome">Nome</label>
@@ -41,6 +40,5 @@ const jobForm = () => (
       </div>
 
     </form>
-  </div>
 )
 export default jobForm;
