@@ -1,11 +1,12 @@
 import React from 'react';
+import developerImg from '../../../assets/developer.png'
 
 const jobCard = () => (
-  <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-  <div class="card">
-    <img class="card-img-top" src="developer.png" alt="Card image cap" />
-    <div class="card-body">
-      <h5 class="card-title">Desenvolvedor Front-end JR</h5>
+  <div className="col-sm-12 col-md-6 col-lg-4 mb-3">
+  <div className="card">
+    <img className="card-img-top" src={developerImg} alt="Card image cap" />
+    <div className="card-body">
+      <h5 className="card-title">Desenvolvedor Front-end JR</h5>
       <div>
         <b>Descrição:</b>
         <p>Profissional que goste de trabalhar em um ambiênte dinâmico com desenvolvimento de software e que tenha experiência
@@ -15,11 +16,11 @@ const jobCard = () => (
         <p>R$ 10,00</p>
 
       </div>
-      <a href="#" class="btn btn-warning">
-        <i class="far fa-edit"></i>
+      <a href="#" className="btn btn-warning">
+        <i className="far fa-edit"></i>
       </a>
-      <a href="#" class="btn btn-danger">
-        <i class="far fa-trash-alt"></i>
+      <a href="#" className="btn btn-danger">
+        <i className="far fa-trash-alt"></i>
       </a>
     </div>
   </div>

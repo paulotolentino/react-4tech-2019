@@ -7,9 +7,7 @@ const jobsList = () => (
     <JobCard/>
     <JobCard/>
     <JobCard/>
-    <JobCard/>
-    <JobCard/>
-    <JobCard/>
+
   </div>
 );
 
