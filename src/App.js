@@ -19,10 +19,7 @@ class App extends Component {
             <p>TESTE</p>
           </Collapse>
 
-          <Collapse buttonText="VER VAGAS" btnClass='btn-info' 
-            collapseId="viewJobsCollapse">
-            <JobsList/>
-          </Collapse>
+          <JobsList/>
         </div>
       </div>
     );

@@ -8,8 +8,7 @@ class JobsList extends React.Component {
     jobs: [
       { id: 1, name: 'Desenvolvedor JR', description: 'jahsdkjahskdj', salary: 1200, area: 'dev' },
       { id: 2, name: 'Tester JR', description: 'blablabla', salary: 1200, area: 'test' },
-      { id: 3, name: 'Designer JR', description: 'jahsdkjahskdj', salary: 1200, area: 'design' },
-      { id: 4, name: 'Tester JR', description: 'blablabla', salary: 1200, area: 'test' }
+      { id: 3, name: 'Designer JR', description: 'jahsdkjahskdj', salary: 1200, area: 'design' }
     ],
     hasError: false
   }
