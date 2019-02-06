@@ -1,6 +1,8 @@
 import React from 'react';
 
 import JobCard from './JobCard/JobCard';
+import JobForm from '../JobForm/JobForm';
+import Collapse from '../navigation/Collapse/Collapse';
 
 class JobsList extends React.Component {
 
@@ -11,6 +13,12 @@ class JobsList extends React.Component {
       { id: 3, name: 'Designer JR', description: 'jahsdkjahskdj', salary: 1200, area: 'design' }
     ],
     hasError: false
+  }
+
+  jobCreateHandler = (paramNewJob) => {
+    let newList = this.state.jobs;
+    newList.push(paramNewJob);
+    this.setState({ jobs: newList });
   }
 
   jobRemoveHandler = (paramId, paramName) => {
@@ -56,8 +64,15 @@ class JobsList extends React.Component {
     });
 
     return (
-      <div className="row">
-        {renderJobs}
+      <div>
+        <Collapse buttonText="CRIAR VAGA" btnClass='btn-secondary' 
+          collapseId="newJobForm">
+          <JobForm addItemList={ this.jobCreateHandler }/>
+        </Collapse>
+
+        <div className="row">
+          {renderJobs}
+        </div>
       </div>
     )
   }
