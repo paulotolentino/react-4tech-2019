@@ -1,14 +1,42 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class JobForm extends Component {
 
+  objModel = {
+    name: '',
+    description: '',
+    salary: '',
+    area: '',
+    skills: '',
+    differentials: '',
+    isPcd: ''
+  }
+
   state = {
-    newJob: { }
+    newJob: {
+      name: '',
+      description: '',
+      salary: '',
+      area: '',
+      skills: '',
+      differentials: '',
+      isPcd: ''
+    }
   }
 
   postJobHandler = (event) => {
-    this.props.addItemList(this.state.newJob);
-    event.preventDefault();
+
+    let objId = '';
+    axios.post('/jobs', this.state.newJob)
+      .then(response => {
+        objId = response.data;
+        this.setState({ newJob: {...this.objModel}});
+      })
+      .catch(error => {
+        alert("Erro");
+        console.error(error);
+      })
   }
 
   onValueChangeHandler = (attrName, pValue) => {
@@ -19,7 +47,7 @@ export default class JobForm extends Component {
 
   render() {
     return (
-      <form className="row mb-0">
+      <form className="row mb-0" onSubmit={ this.postJobHandler }>
         <div className="form-group col-12">
           <label for="nome">Nome *</label>
           <input type="text" className="form-control" id="nome" 
@@ -52,9 +80,10 @@ export default class JobForm extends Component {
         </div>
         <div className="form-group col-sm-12 col-md-6">
           <label for="area">Área</label>
-          <select className="form-control" id="area"
+          <select className="form-control" id="area" required
             value={ this.state.newJob.area }
             onChange={(event) => this.onValueChangeHandler('area', event.target.value)}>
+            <option value=''>Selecione</option>
             <option value='dev'>Desenvolvimento</option>
             <option value='design'>UX/UI</option>
             <option value='test'>Teste</option>
@@ -62,15 +91,14 @@ export default class JobForm extends Component {
         </div>
 
         <div className="form-group form-check col-sm-12 col-md-6 ml-3">
-          <input type="checkbox" className="form-check-input" id="isPCD" 
+          <input type="checkbox" className="form-check-input" id="isPcd" 
             checked={ this.state.newJob.isPCD }
-            onChange={(e) => this.onValueChangeHandler('isPCD', e.target.checked)}/>
+            onChange={(e) => this.onValueChangeHandler('isPcd', e.target.checked)}/>
           <label className="form-check-label" for="isPCD">Vaga para PCD</label>
         </div>
 
         <div className="form-group col-12 text-right mb-0">
-          <button type="submit" className="btn btn-success"
-            onClick={ this.postJobHandler }>Criar vaga</button>
+          <button type="submit" className="btn btn-success">Criar vaga</button>
         </div>
 
       </form>

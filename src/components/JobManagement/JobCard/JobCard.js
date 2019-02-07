@@ -3,6 +3,7 @@ import React from 'react';
 import developerImg from '../../../assets/developer.png'
 import testerImg from '../../../assets/tester.png'
 import designerImg from '../../../assets/designer.png'
+import defaultImg from '../../../assets/default.jpg'
 
 const jobCard = (props) => {
 
@@ -18,6 +19,8 @@ const jobCard = (props) => {
     case 'design':
       img = designerImg;
       break;
+    default:
+      img = defaultImg;
   }
 
   return (

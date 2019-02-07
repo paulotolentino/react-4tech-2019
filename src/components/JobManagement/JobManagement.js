@@ -3,14 +3,12 @@ import React from 'react';
 import JobCard from './JobCard/JobCard';
 import JobForm from '../JobForm/JobForm';
 import Collapse from '../navigation/Collapse/Collapse';
+import axios from 'axios';
 
-class JobsList extends React.Component {
+export default class JobsList extends React.Component {
 
   state = {
     jobs: [
-      { id: 1, name: 'Desenvolvedor JR', description: 'jahsdkjahskdj', salary: 1200, area: 'dev' },
-      { id: 2, name: 'Tester JR', description: 'blablabla', salary: 1200, area: 'test' },
-      { id: 3, name: 'Designer JR', description: 'jahsdkjahskdj', salary: 1200, area: 'design' }
     ],
     hasError: false
   }
@@ -23,18 +21,25 @@ class JobsList extends React.Component {
 
   jobRemoveHandler = (paramId, paramName) => {
     if (window.confirm(`Deseja realmente remover a vaga "${paramName}"?`)) {
-      const index = this.state.jobs.findIndex(job => job.id === paramId);
+      axios.delete(`/jobs/${paramId}`)
+        .then( _ => {
+          const index = this.state.jobs.findIndex(job => job.id === paramId);
 
-      let newList = this.state.jobs;
-      newList.splice(index, 1);
-      this.setState({ jobs: newList });
-
-      window.alert('Removido com sucesso!');
+          let newList = this.state.jobs;
+          newList.splice(index, 1);
+          this.setState({ jobs: newList });
+    
+          window.alert('Removido com sucesso!');
+        })
+        .catch(error => {
+          console.error(error);
+        })
+     
     }
   }
 
-  componentWillMount() {
-    console.log('COMPONENT WILL MOUNT');
+  componentWillUnmount() {
+    console.log('will unmount');
   }
 
   componentWillUpdate() {
@@ -46,7 +51,11 @@ class JobsList extends React.Component {
   }
 
   componentDidMount() {
-    console.log('COMPONENT DID MOUNT');
+    const axiosConfig = {
+      headers: {
+        "Authorization": 'Bearer ' + JSON.parse(window.localStorage.getItem('token'));
+      }
+    }
   }
 
   render() {
@@ -77,4 +86,3 @@ class JobsList extends React.Component {
     )
   }
 }
-export default JobsList;
