@@ -34,18 +34,35 @@ export default class JobsManagement extends React.Component {
 
   jobRemoveHandler = (paramId, paramName) => {
     if (window.confirm(`Deseja realmente remover a vaga "${paramName}"?`)) {
-      const index = this.state.jobs.findIndex(job => job.id === paramId);
 
-      let newList = this.state.jobs;
-      newList.splice(index, 1);
-      this.setState({ jobs: newList });
+      axios.delete(`/jobs/${paramId}`)
+        .then(_ => {
+          const index = this.state.jobs.findIndex(job => job.id === paramId);
 
-      window.alert('Removido com sucesso!');
+          let newList = this.state.jobs;
+          newList.splice(index, 1);
+          this.setState({ jobs: newList });
+
+          window.alert('Removido com sucesso!');
+        })
+        .catch(error => {
+          console.error(error);
+        })
     }
   }
 
+  componentWillUnmount() {
+    console.log("WILL UNMOUNT");
+  }
+
   componentDidMount() {
-    axios.get('/jobs')
+    const axiosConfig = {
+      headers: {
+        'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('token'))
+      }
+    }
+
+    axios.get('/jobs', axiosConfig)
       .then(response => {
         this.setState({ jobs: response.data })
       })
@@ -58,7 +75,7 @@ export default class JobsManagement extends React.Component {
     this.setState({ selectedId: '' });
   }
 
-  
+
   render() {
 
     const renderJobs = this.state.jobs.map(job => {
@@ -70,18 +87,18 @@ export default class JobsManagement extends React.Component {
         area={job.area}
         panelId="newJobForm"
         removeHandler={() => this.jobRemoveHandler(job.id, job.name)}
-        editHandler={() => this.jobEditHandler(job.id)} 
-        />
+        editHandler={() => this.jobEditHandler(job.id)}
+      />
     });
 
     return (
       <div>
-        <Collapse buttonText="CRIAR VAGA" btnClass='btn-secondary' 
+        <Collapse buttonText="CRIAR VAGA" btnClass='btn-secondary'
           collapseId="newJobForm">
-          <JobForm addItemList={ this.jobCreateHandler } 
-            editJobId={ this.state.selectedId } panelId="newJobForm"
-            clearSelectedId={ this.clearSelectedId }
-            editedHandler={ this.jobEditedHandler }/>
+          <JobForm addItemList={this.jobCreateHandler}
+            editJobId={this.state.selectedId} panelId="newJobForm"
+            clearSelectedId={this.clearSelectedId}
+            editedHandler={this.jobEditedHandler} />
         </Collapse>
 
         <div className="row">
