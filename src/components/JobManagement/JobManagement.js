@@ -4,22 +4,32 @@ import JobCard from './JobCard/JobCard';
 import JobForm from '../JobForm/JobForm';
 import Collapse from '../navigation/Collapse/Collapse';
 
-class JobsList extends React.Component {
+import axios from 'axios';
+
+export default class JobsManagement extends React.Component {
 
   state = {
-    jobs: [
-      { id: 1, name: 'Desenvolvedor JR', description: 'jahsdkjahskdj', salary: 1200, area: 'dev' },
-      { id: 2, name: 'Tester JR', description: 'blablabla', salary: 1200, area: 'test' },
-      { id: 3, name: 'Designer JR', description: 'jahsdkjahskdj', salary: 1200, area: 'design' },
-      { id: 4, name: 'Tester JR', description: 'blablabla', salary: 1200, area: 'test' }
-    ],
-    hasError: false
+    jobs: [],
+    hasError: false,
+    selectedId: ''
   }
 
   jobCreateHandler = (paramNewJob) => {
     let newList = this.state.jobs;
     newList.push(paramNewJob);
     this.setState({ jobs: newList });
+  }
+
+  jobEditHandler = (paramId) => {
+    console.log(paramId);
+    this.setState({ selectedId: paramId });
+  }
+
+  jobEditedHandler = (paramId, newJobData) => {
+    const index = this.state.jobs.findIndex(job => job.id == paramId);
+    let jobsList = this.state.jobs;
+    jobsList[index] = newJobData;
+    this.setState({ jobs: jobsList });
   }
 
   jobRemoveHandler = (paramId, paramName) => {
@@ -34,25 +44,22 @@ class JobsList extends React.Component {
     }
   }
 
-  componentWillMount() {
-    console.log('COMPONENT WILL MOUNT');
-  }
-
-  componentWillUpdate() {
-    console.log('COMPONENT WILL UPDATE');
-  }
-
-  componentDidUpdate() {
-    console.log('COMPONENT DID UPDATE');
-  }
-
   componentDidMount() {
-    console.log('COMPONENT DID MOUNT');
+    axios.get('/jobs')
+      .then(response => {
+        this.setState({ jobs: response.data })
+      })
+      .catch(error => {
+        console.error(error);
+      })
   }
 
-  render() {
+  clearSelectedId = () => {
+    this.setState({ selectedId: '' });
+  }
 
-    console.log('RENDER!');
+  
+  render() {
 
     const renderJobs = this.state.jobs.map(job => {
       return <JobCard
@@ -61,14 +68,20 @@ class JobsList extends React.Component {
         description={job.description}
         salary={job.salary}
         area={job.area}
-        removeHandler={() => this.jobRemoveHandler(job.id, job.name)} />
+        panelId="newJobForm"
+        removeHandler={() => this.jobRemoveHandler(job.id, job.name)}
+        editHandler={() => this.jobEditHandler(job.id)} 
+        />
     });
 
     return (
       <div>
         <Collapse buttonText="CRIAR VAGA" btnClass='btn-secondary' 
           collapseId="newJobForm">
-          <JobForm addItemList={ this.jobCreateHandler }/>
+          <JobForm addItemList={ this.jobCreateHandler } 
+            editJobId={ this.state.selectedId } panelId="newJobForm"
+            clearSelectedId={ this.clearSelectedId }
+            editedHandler={ this.jobEditedHandler }/>
         </Collapse>
 
         <div className="row">
@@ -78,4 +91,3 @@ class JobsList extends React.Component {
     )
   }
 }
-export default JobsList;
