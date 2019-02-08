@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import developerImg from '../../../assets/developer.png'
 import testerImg from '../../../assets/tester.png'
@@ -29,7 +30,7 @@ const jobCard = (props) => {
       <div className="card">
         <img className="card-img-top" src={img} alt="Card cap" />
         <div className="card-body">
-          <h5 className="card-title">{props.name}</h5>
+          <Link to={"/vagas/" + props.id}><h5 className="card-title">{props.name}</h5></Link>
           <div>
             <b>Descrição:</b>
             <p>{props.description}</p>

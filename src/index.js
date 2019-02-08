@@ -14,6 +14,14 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
 axios.defaults.baseURL = 'https://afternoon-ocean-29603.herokuapp.com';
 
+window.getAxiosConfig = () => {
+  return {
+    headers: {
+      'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('token'))
+    }
+  }
+}
+
 ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, 
   document.getElementById('root'));
 
