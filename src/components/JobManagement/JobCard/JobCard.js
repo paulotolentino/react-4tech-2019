@@ -3,11 +3,7 @@ import React from 'react';
 import developerImg from '../../../assets/developer.png'
 import testerImg from '../../../assets/tester.png'
 import designerImg from '../../../assets/designer.png'
-<<<<<<< HEAD
 import defaultImg from '../../../assets/default.jpg'
-=======
-import backDefault from '../../../assets/background.jpg'
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
 
 const jobCard = (props) => {
 
@@ -24,12 +20,8 @@ const jobCard = (props) => {
       img = designerImg;
       break;
     default:
-<<<<<<< HEAD
       img = defaultImg;
-=======
-      img = backDefault;
       break;
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
   }
 
   return (

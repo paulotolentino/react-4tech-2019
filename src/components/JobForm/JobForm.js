@@ -3,28 +3,6 @@ import axios from 'axios';
 
 export default class JobForm extends Component {
 
-<<<<<<< HEAD
-  objModel = {
-    name: '',
-    description: '',
-    salary: '',
-    area: '',
-    skills: '',
-    differentials: '',
-    isPcd: ''
-  }
-
-  state = {
-    newJob: {
-      name: '',
-      description: '',
-      salary: '',
-      area: '',
-      skills: '',
-      differentials: '',
-      isPcd: ''
-    }
-=======
   objModel = Object.freeze({
     name: '',
     description: '',
@@ -38,23 +16,11 @@ export default class JobForm extends Component {
   state = {
     newJob: { ...this.objModel },
     idEditing: false
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
   }
 
   postJobHandler = (event) => {
 
     let objId = '';
-<<<<<<< HEAD
-    axios.post('/jobs', this.state.newJob)
-      .then(response => {
-        objId = response.data;
-        this.setState({ newJob: {...this.objModel}});
-      })
-      .catch(error => {
-        alert("Erro");
-        console.error(error);
-      })
-=======
 
     if (this.state.newJob.id) { // se tem id é uma edição
       axios.put('/jobs/' + this.state.newJob.id, this.state.newJob)
@@ -113,7 +79,6 @@ export default class JobForm extends Component {
     });
 
     return hasChanged;
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
   }
 
   onValueChangeHandler = (attrName, pValue) => {
@@ -129,11 +94,7 @@ export default class JobForm extends Component {
 
   render() {
     return (
-<<<<<<< HEAD
-      <form className="row mb-0" onSubmit={ this.postJobHandler }>
-=======
       <form className="row mb-0" onSubmit={this.postJobHandler}>
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
         <div className="form-group col-12">
           <label for="nome">Nome *</label>
           <input type="text" className="form-control" id="nome"
@@ -165,19 +126,11 @@ export default class JobForm extends Component {
             onChange={(event) => this.onValueChangeHandler('salary', event.target.value)} />
         </div>
         <div className="form-group col-sm-12 col-md-6">
-<<<<<<< HEAD
-          <label for="area">Área</label>
-          <select className="form-control" id="area" required
-            value={ this.state.newJob.area }
-            onChange={(event) => this.onValueChangeHandler('area', event.target.value)}>
-            <option value=''>Selecione</option>
-=======
           <label for="area">Área *</label>
           <select className="form-control" id="area"
             value={this.state.newJob.area} required
             onChange={(event) => this.onValueChangeHandler('area', event.target.value)}>
             <option value=''>Selecione...</option>
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
             <option value='dev'>Desenvolvimento</option>
             <option value='design'>UX/UI</option>
             <option value='test'>Teste</option>
@@ -185,16 +138,6 @@ export default class JobForm extends Component {
         </div>
 
         <div className="form-group form-check col-sm-12 col-md-6 ml-3">
-<<<<<<< HEAD
-          <input type="checkbox" className="form-check-input" id="isPcd" 
-            checked={ this.state.newJob.isPCD }
-            onChange={(e) => this.onValueChangeHandler('isPcd', e.target.checked)}/>
-          <label className="form-check-label" for="isPCD">Vaga para PCD</label>
-        </div>
-
-        <div className="form-group col-12 text-right mb-0">
-          <button type="submit" className="btn btn-success">Criar vaga</button>
-=======
           <input type="checkbox" className="form-check-input" id="isPcd"
             checked={this.state.newJob.isPcd}
             onChange={(e) => this.onValueChangeHandler('isPcd', e.target.checked)} />
@@ -204,7 +147,6 @@ export default class JobForm extends Component {
         <div className="form-group col-12 text-right mb-0">
           <button onClick={this.clearFormHandler} className="btn btn-light mr-1" data-toggle="collapse" data-target={'#' + this.props.panelId}>Cancelar</button>
           <button type="submit" className="btn btn-success" data-toggle="collapse" data-target={'#' + this.props.panelId}>Salvar vaga</button>
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
         </div>
 
       </form>

@@ -5,23 +5,12 @@ import JobForm from '../JobForm/JobForm';
 import Collapse from '../navigation/Collapse/Collapse';
 import axios from 'axios';
 
-<<<<<<< HEAD
-export default class JobsList extends React.Component {
-
-  state = {
-    jobs: [
-    ],
-    hasError: false
-=======
-import axios from 'axios';
-
 export default class JobsManagement extends React.Component {
 
   state = {
     jobs: [],
     hasError: false,
     selectedId: ''
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
   }
 
   jobCreateHandler = (paramNewJob) => {
@@ -44,42 +33,24 @@ export default class JobsManagement extends React.Component {
 
   jobRemoveHandler = (paramId, paramName) => {
     if (window.confirm(`Deseja realmente remover a vaga "${paramName}"?`)) {
-<<<<<<< HEAD
-      axios.delete(`/jobs/${paramId}`)
-        .then( _ => {
-=======
 
       axios.delete(`/jobs/${paramId}`)
         .then(_ => {
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
           const index = this.state.jobs.findIndex(job => job.id === paramId);
 
           let newList = this.state.jobs;
           newList.splice(index, 1);
           this.setState({ jobs: newList });
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
           window.alert('Removido com sucesso!');
         })
         .catch(error => {
           console.error(error);
         })
-<<<<<<< HEAD
-     
-=======
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
     }
   }
 
   componentWillUnmount() {
-<<<<<<< HEAD
-    console.log('will unmount');
-=======
     console.log("WILL UNMOUNT");
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
   }
 
   componentDidMount() {
@@ -98,17 +69,8 @@ export default class JobsManagement extends React.Component {
       })
   }
 
-<<<<<<< HEAD
-  componentDidMount() {
-    const axiosConfig = {
-      headers: {
-        "Authorization": 'Bearer ' + JSON.parse(window.localStorage.getItem('token'));
-      }
-    }
-=======
   clearSelectedId = () => {
     this.setState({ selectedId: '' });
->>>>>>> fc7e3bae47cdaabb0de296b644cdb56b2265c174
   }
 
 
