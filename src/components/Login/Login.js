@@ -8,9 +8,9 @@ export default class Login extends React.Component {
     return (
       <div className="container mt-5">
 
-        <div className="card" style={{ width: '35rem', margin: '0 auto' }}>
+        <div className="card" style={{ maxwidth: '35rem', margin: '0 auto' }}>
           <div className="card-body">
-            <h5 className="card-title"><img
+          <h5 className="card-title"><img style={{width: "100%"}}
               src={require('./../../assets/logo-vagas.png')} />
             </h5>
             <h6 className="card-subtitle mb-2 text-muted">Insira seu email e senha para entrar no sistema</h6>

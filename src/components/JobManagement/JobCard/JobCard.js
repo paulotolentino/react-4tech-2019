@@ -25,6 +25,21 @@ const jobCard = (props) => {
       break;
   }
 
+  let buttons = <div></div>
+
+  if(navigator.onLine){
+    buttons = (
+      <div>
+        <button onClick={props.editHandler} data-toggle="collapse" data-target={'#' + props.panelId} className="btn btn-warning mr-1">
+          <i className="far fa-edit"></i>
+        </button>
+        <button onClick={props.removeHandler} className="btn btn-danger">
+          <i className="far fa-trash-alt"></i>
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div className="col-sm-12 col-md-6 col-lg-4 mb-3">
       <div className="card">
@@ -39,12 +54,7 @@ const jobCard = (props) => {
             <p>R$  {props.salary}</p>
 
           </div>
-          <button onClick={props.editHandler} data-toggle="collapse" data-target={'#' + props.panelId} className="btn btn-warning mr-1">
-            <i className="far fa-edit"></i>
-          </button>
-          <button onClick={props.removeHandler} className="btn btn-danger">
-            <i className="far fa-trash-alt"></i>
-          </button>
+          {buttons}
         </div>
       </div>
     </div>

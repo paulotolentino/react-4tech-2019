@@ -57,13 +57,20 @@ export default class JobsManagement extends React.Component {
 
   componentDidMount() {
 
-    axios.get('/jobs', window.getAxiosConfig())
-      .then(response => {
-        this.setState({ jobs: response.data })
-      })
-      .catch(error => {
-        console.error(error);
-      })
+    if(!navigator.onLine){
+      this.setState({ jobs: JSON.parse(localStorage.getItem('jobs')) });
+    }else{
+      axios.get('/jobs', window.getAxiosConfig())
+        .then(response => {
+          this.setState({ jobs: response.data })
+          localStorage.setItem('jobs', JSON.stringify(response.data))
+        })
+        .catch(error => {
+          console.error(error);
+        })
+    }
+
+    
   }
 
   clearSelectedId = () => {
@@ -100,6 +107,7 @@ export default class JobsManagement extends React.Component {
         <div className="row">
           {renderJobs}
         </div>
+        <p>{ navigator.onLine? "Online": "Offline" }</p>
       </div>
     )
   }

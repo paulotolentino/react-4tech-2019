@@ -20,13 +20,12 @@ const header = (props) => {
           <Link className="nav-item nav-link text-white" to='/sobre'>
             Sobre
           </Link>
+          <a className="nav-item nav-link text-white">{ props.userName }</a>
+          <a className="nav-item nav-link text-white" onClick={() => props.logout()}>
+            <i className="fas fa-sign-out-alt"></i>
+          </a>
         </div>
-      </div>
-
-      <a className="nav-item nav-link text-white">{ props.userName }</a>
-      <a className="nav-item nav-link text-white" onClick={() => props.logout()}>
-        <i className="fas fa-sign-out-alt"></i>
-      </a>
+      </div>    
     </nav>
   )
 }
